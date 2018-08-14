@@ -1,22 +1,22 @@
- #!/bin/bash
- 
- # Hangi AS Sertifitseerimiskeskusest tühistusnimekirjad. Vt ka http://sk.ee/repositoorium/CRL/ 
- 
- wget http://www.sk.ee/crls/esteid/esteid2007.crl
- wget http://www.sk.ee/crls/juur/crl.crl
- wget http://www.sk.ee/crls/eeccrca/eeccrca.crl
- wget http://www.sk.ee/repository/crls/esteid2011.crl
+#!/bin/bash
 
-# Konverteeri tühistusnimekirjad PEM formaati
+# Hangi AS Sertifitseerimiskeskusest tÃ¼histusnimekirjad. Vt ka http://sk.ee/repositoorium/CRL/ 
 
- openssl crl -in esteid2007.crl -out esteid2007.crl -inform DER
- openssl crl -in crl.crl -out crl.crl -inform DER
- openssl crl -in eeccrca.crl -out eeccrca.crl -inform DER
- openssl crl -in esteid2011.crl -out esteid2011.crl -inform DER  
+wget https://sk.ee/crls/eeccrca/eeccrca.crl
+wget https://sk.ee/crls/esteid/esteid2015.crl
+wget https://sk.ee/repository/crls/esteid2011.crl
+wget https://sk.ee/repository/crls/eid2011.crl
 
-# Loo tühistusnimekirjade symlingid, mille failinimi baseerub CRL faili hashil:
+# Konverteeri tÃ¼histusnimekirjad PEM formaati
 
- ln -s crl.crl `openssl crl -hash -noout -in crl.crl`.r0
- ln -s esteid2007.crl `openssl crl -hash -noout -in esteid2007.crl`.r0
- ln -s eeccrca.crl `openssl crl -hash -noout -in eeccrca.crl`.r0
- ln -s esteid2011.crl `openssl crl -hash -noout -in esteid2011.crl`.r0  
+openssl crl -in eeccrca.crl -out eeccrca.crl -inform DER
+openssl crl -in esteid2015.crl -out esteid2015.crl -inform DER
+openssl crl -in esteid2011.crl -out esteid2011.crl -inform DER  
+openssl crl -in eid2011.crl -out eid2011.crl -inform DER
+
+# Loo tÃ¼histusnimekirjade symlingid, mille failinimi baseerub CRL faili hashil:
+
+ln -s eeccrca.crl `openssl crl -hash -noout -in eeccrca.crl`.r0
+ln -s esteid2015.crl `openssl crl -hash -noout -in esteid2015.crl`.r0
+ln -s esteid2011.crl `openssl crl -hash -noout -in esteid2011.crl`.r0  
+ln -s eid2011.crl `openssl crl -hash -noout -in eid2011.crl`.r0
